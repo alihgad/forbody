@@ -8,7 +8,7 @@ const objectIdValidator = (value, helpers) => {
 };
 
 export default {
-  password: joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/),
+  password: joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ , "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character."),
   email: joi.string().email(),
   headers: joi.object({
     connection: joi.string(),
