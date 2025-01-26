@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
-
-const connectionDB = mongoose.connect('mongodb+srv://alihgad2:alimongo@bookshub.4uutypb.mongodb.net/forbody')
+import dotenv from 'dotenv'
+import path from 'path'
+dotenv.config()
+const connectionDB = mongoose.connect(process.env.URI)
     .then(() => {
         console.log("3ash")
     }).catch(err => console.error(err));
