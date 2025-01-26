@@ -4,6 +4,7 @@ import AppError from './AppError.js'
 import asyncHandler from './asyncHandler.js'
 
 export default (roles = ["user"])=>{
+    
     return asyncHandler(
         async (req,res,next)=>{
             let {token} = req.headers
@@ -25,11 +26,6 @@ export default (roles = ["user"])=>{
                 next(new AppError('unauthorized' , 401))
             }
     
-            if(req.user?.passwordChangedAt){
-                if(req.user.passwordChangedAt > decoded.iat){
-                    next(new AppError('password has been changed log in again' , 401))
-                }
-            }
     
             next()
     
