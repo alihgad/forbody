@@ -1,5 +1,5 @@
 import joi from 'joi';
-import glopalSchema from '../../services/glopalSchema';
+import glopalSchema from '../../services/glopalSchema.js';
 
 
 export const signUpSchema = {

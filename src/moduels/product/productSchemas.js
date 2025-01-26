@@ -1,5 +1,5 @@
-import glopalSchema from "../../glopalMiddelWares/glopalSchema.js";
 import joi from 'joi'
+import glopalSchema from '../../services/glopalSchema.js'
 
 
 export const createProudctSchema = {

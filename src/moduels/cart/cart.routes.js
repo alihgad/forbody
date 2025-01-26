@@ -1,8 +1,8 @@
 import { Router } from "express";
-import auth from "../../glopalMiddelWares/auth.js";
-import GValidator from "../../glopalMiddelWares/GValidator.js";
 import {clearCart, createCart, getCart, removeFromCart} from './cart.controler.js'
 import { createCartSchema } from "./cartSchemas.js";
+import GValidator from "../../services/GValidator.js";
+import auth from "../../services/auth.js";
 
 
 let cartRouter = Router()

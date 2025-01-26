@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
-import { userModel } from '../../db/models/user.model.js'
-import AppError from '../utils/AppError.js'
-import asyncHandler from '../utils/asyncHandler.js'
+import { userModel } from '../db/models/user.model.js'
+import AppError from './AppError.js'
+import asyncHandler from './asyncHandler.js'
 
 export default (roles = ["user"])=>{
     return asyncHandler(

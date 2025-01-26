@@ -1,5 +1,4 @@
 import { v2 as cloudinary } from 'cloudinary';
-import { couponModel } from '../../db/models/coupon.model.js';
 
 
 export default (cb)=>{

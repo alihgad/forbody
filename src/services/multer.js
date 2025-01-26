@@ -1,7 +1,7 @@
 import multer from 'multer'
 import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv'
-import AppError from '../utils/AppError.js';
+import AppError from './AppError.js';
 
 dotenv.config()
 

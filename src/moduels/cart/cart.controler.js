@@ -1,7 +1,7 @@
-import { cartModel } from "../../db/models/cart.model"
-import { productModel } from "../../db/models/product.model"
-import AppError from "../../services/AppError"
-import asyncHandler from "../../services/asyncHandler"
+import { productModel } from "../../db/models/product.model.js"
+import { cartModel } from "../../db/models/cart.model.js"
+import AppError from "../../services/AppError.js"
+import asyncHandler from "../../services/asyncHandler.js"
 
 
 

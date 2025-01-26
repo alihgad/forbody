@@ -1,15 +1,13 @@
 import { Router } from "express";
-import { multerHost } from "../../glopalMiddelWares/multer.js";
-import auth from "../../glopalMiddelWares/auth.js";
-import GValidator from "../../glopalMiddelWares/GValidator.js";
 import { createProudctSchema, updateProudctSchema } from "./productSchemas.js";
-import { createProduct, deleteProudct, getAllProducts, getProudcts, updateProduct } from "./product.controler.js";
-import reviewRouter from "../review/review.routes.js";
+import { createProduct, deleteProudct, getProudcts, updateProduct } from "./product.controler.js";
+import GValidator from "../../services/GValidator.js";
+import auth from "../../services/auth.js";
+import { multerHost } from "../../services/multer.js";
 
 
 let productRouter = Router({mergeParams:true})
 
-productRouter.use('/:productId/review',reviewRouter)
 
 productRouter.post('/',auth(["admin"]),multerHost().fields([{name:'image' , maxCount:1  },{ name:"images",maxCount: 4}]),GValidator(createProudctSchema),createProduct)
 productRouter.delete('/:ProductID',auth(["admin"]),deleteProudct)

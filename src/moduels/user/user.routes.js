@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { deleteUser, forgetPassword, login, resetPassword, reVerfiyng, signUp, ubdatePassword, updateUser, verfiyng } from "./user.controler.js";
-import GValidator from "../../glopalMiddelWares/GValidator.js";
 import { signUpSchema , resetPasswordSchema, loginSchema, updateUserSchema, updatePasswordSchema, deleteSchema } from "./userSchemas.js";
 import auth from "../../services/auth.js";
+import GValidator from "../../services/GValidator.js";
 
 let userRouter = Router()
 let all = ["user","admin"]
