@@ -110,6 +110,11 @@ export const updateUser = asyncHandler(async (req, res, next) => {
             return next(new AppError('email already exist' , 409))
         }
         sendVerfyingEmail(req, req.body.email)
+        .then(()=>{
+            return res.status(200).json({ msg: 'verfiy sucsses' })
+        }).catch(e=>{
+            return res.status(200).json({ msg: 'error' , e , details: e.message })
+        })
         req.body.confirmed = false
     }
 
