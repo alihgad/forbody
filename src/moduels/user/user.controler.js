@@ -100,7 +100,7 @@ export const login = asyncHandler(async (req, res, next) => {
 export const updateUser = asyncHandler(async (req, res, next) => {
 
     if (req.body.email) {
-        if(req.bod.email == req.user.email){
+        if(req.body.email == req.user.email){
             return next(new AppError('email is the same' , 400))
         }
         let emailExist = await userModel.findOne({ email: req.body.email })
