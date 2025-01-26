@@ -9,7 +9,7 @@ export const signUpSchema = {
         password: glopalSchema.password.required(),
         age: joi.number().min(18).integer().required(),
         phones: joi.array().items(joi.string().regex(/^01\d{9,10}$/)),
-        adress: joi.array().items(joi.string()),
+        address: joi.array().items(joi.string()),
         role:joi.string().valid("user", "admin"),
     })
 };
