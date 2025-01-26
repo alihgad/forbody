@@ -12,6 +12,8 @@ export default {
   email: joi.string().email(),
   headers: joi.object({
     connection: joi.string(),
+    "cache-control": joi.string(),
+    "x-vercel-internal-ingress-bucket": joi.string(),
     "token": joi.string().required().min(20),
     'x-vercel-proxied-for': joi.string(),
     'x-vercel-ip-timezone': joi.string(),
