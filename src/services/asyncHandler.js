@@ -13,18 +13,9 @@ export default (cb)=>{
 
 export const glopalErrorHandler = (err,req,res,next)=>{
     
-    res.status(err.statusCode || 500).json({message: err.message , stack:err.stack})
-    next()
+    return res.status(err.statusCode || 500).json({message: err.message , stack:err.stack})
 }
 
-export const delteIdFromCopoun = async (req, res, next)=>{
-    if(req.body.coupon){
-        
-        await couponModel.findByIdAndUpdate(req.body.coupon._id , {$pull:{usedBy:req.user._id}})
-    }
-
-    next()
-}
 
 
 export const deleteFolder = async (req, res, next)=>{

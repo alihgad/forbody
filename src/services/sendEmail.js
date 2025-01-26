@@ -15,7 +15,7 @@ const transporter = createTransport({
 async function main(email,html,subject,attachments=[]) {
   // send mail with defined transport object
   const info = await transporter.sendMail({
-    from: '"Route E-commerce"', // sender address
+    from: '"For Body"', // sender address
     to: email, // list of receivers
     subject , // Subject line
     html, // html body,

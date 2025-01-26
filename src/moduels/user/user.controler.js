@@ -7,7 +7,6 @@ import asyncHandler from '../../services/asyncHandler.js';
 import sendVerfyingEmail from '../../services/sendVerfyingEmail.js';
 import { userModel } from '../../db/models/user.model.js';
 dotenv.config()
-console.log(process.env)
 
 
 export const signUp = asyncHandler(async (req, res, next) => {

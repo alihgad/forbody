@@ -11,7 +11,7 @@ export default
                 }
             })
             if (errors.length > 0) {
-                res.status(500).json({ errors })
+                return res.status(500).json({ errors })
             } else {
                 next()
             }
