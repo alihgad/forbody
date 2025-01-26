@@ -6,6 +6,7 @@ import main from "../../services/sendEmail.js";
 import asyncHandler from '../../services/asyncHandler.js';
 import sendVerfyingEmail from '../../services/sendVerfyingEmail.js';
 import { userModel } from '../../db/models/user.model.js';
+import AppError from '../../services/AppError.js';
 dotenv.config()
 
 export const getUsers = asyncHandler(async (req, res, next) => {
