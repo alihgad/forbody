@@ -8,7 +8,7 @@ export const createProudctSchema = {
         stock : joi.number().required(),
         descreption : joi.string().required(),
         price : joi.number().required(),
-        discount : joi.number().required().max(100)
+        discount : joi.number().max(100)
     }),
 
     headers: glopalSchema.headers.required(),
