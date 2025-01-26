@@ -26,7 +26,7 @@ export default (roles = ["user"])=>{
             }
     
             if(req.user?.passwordChangedAt){
-                if(passwordChangedAt > decoded.iat){
+                if(req.user.passwordChangedAt > decoded.iat){
                     next(new AppError('password has been changed log in again' , 401))
                 }
             }
