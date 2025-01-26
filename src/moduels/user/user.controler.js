@@ -8,6 +8,10 @@ import sendVerfyingEmail from '../../services/sendVerfyingEmail.js';
 import { userModel } from '../../db/models/user.model.js';
 dotenv.config()
 
+export const getUsers = asyncHandler(async (req, res, next) => {
+    let user = await userModel.find().select("-password -_id -__v")
+    return res.status(200).json({ msg: 'sucsses', user })
+})
 
 export const signUp = asyncHandler(async (req, res, next) => {
     let hashed = bcrypt.hashSync(req.body.password, Number(process.env.SALT))

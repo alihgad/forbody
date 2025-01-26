@@ -3,6 +3,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import { nanoid } from "nanoid";
 import AppError from "../../services/AppError.js";
 import asyncHandler from "../../services/asyncHandler.js";
+import { productModel } from "../../db/models/product.model.js";
 
 
 export const createProduct = asyncHandler(async (req, res, next) => {
