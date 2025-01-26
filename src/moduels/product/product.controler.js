@@ -25,7 +25,7 @@ export const createProduct = asyncHandler(async (req, res, next) => {
         stock ,
         descreption ,
         price ,
-        subPrice: discount? price - (discount/100*price) : 0,
+        subPrice: discount? price - (discount/100*price) : price,
         isDiscounted : discount ? true : false,
         discount ,
         customId,
