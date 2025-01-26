@@ -100,16 +100,21 @@ export const login = asyncHandler(async (req, res, next) => {
 export const updateUser = asyncHandler(async (req, res, next) => {
 
     if (req.body.email) {
-        let emailExist = await userModel.findOne({ email: req.body.email.toLowerCase() })
-        if (emailExist && emailExist._id.toString() !== req.user._id.toString()) {
-            return res.status(409).json({ msg: 'email already exist' })
+        if(req.bod.email == req.user.email){
+            return next(new AppError('email is the same' , 400))
         }
+        let emailExist = await userModel.findOne({ email: req.body.email })
+        if (emailExist && emailExist._id.toString() !== req.user._id.toString()) {
+
+            return next(new AppError('email already exist' , 409))
+        }
+        sendVerfyingEmail(req, req.body.email)
         req.body.confirmed = false
     }
 
-    let user = await userModel.findOneAndUpdate({ email: req.user.email.toLowerCase() }, req.body, { new: true })
+    let user = await userModel.findOneAndUpdate({ email: req.user.email }, req.body, { new: true })
     if (!user) {
-        return res.status(404).json({ msg: 'user not found' })
+        next(new AppError('user not found' , 404))
     }
     return res.status(200).json({ msg: 'sucsses', user })
 
