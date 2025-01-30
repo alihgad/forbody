@@ -24,7 +24,6 @@ let userSchema = mongoose.Schema({
     ,
     age:{
         type: Number,
-        required: true,
         min: 18,
     }
     ,
