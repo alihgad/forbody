@@ -4,7 +4,7 @@ import { v2 as cloudinary } from 'cloudinary';
 export default (cb)=>{
     return (req,res,next)=>{
         cb(req,res,next).catch(err=>{
-            next(err);
+            return res.status(err.statusCode || 500).json({message: err.message , stack:err.stack})
         })
     }
 }

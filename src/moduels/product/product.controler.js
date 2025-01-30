@@ -39,7 +39,7 @@ export const createProduct = asyncHandler(async (req, res, next) => {
 
 export const updateProduct = asyncHandler(async (req, res, next) => {
     const { title , stock , descreption , price , discount , isDiscounted } = req.body
-    const { categoryId , subCategoryId , ProductID } = req.params
+    const {ProductID } = req.params
 
    
     let product = await productModel.findOne({_id:ProductID })
@@ -107,6 +107,14 @@ export const getProudcts = asyncHandler(async (req,res,next)=>{
     let products = await productModel.find()
     
     return res.json({ msg: 'Products fetched', products })
+})
+
+export const getOneProudct = asyncHandler(async (req,res,next)=>{
+    let {ProductID} = req.params
+   
+    let product = await productModel.findById(ProductID)
+    
+    return res.json({ msg: 'Products fetched', product })
 })
 
 
