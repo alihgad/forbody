@@ -13,7 +13,7 @@ productRouter.post('/',auth(["admin"]),multerHost().fields([{name:'image' , maxC
 productRouter.delete('/:ProductID',auth(["admin"]),deleteProudct)
 productRouter.put('/:ProductID',auth(["admin"]),multerHost().fields([{name:'image' , maxCount:1  },{ name:"images",maxCount: 4}]),GValidator(updateProudctSchema),updateProduct)
 productRouter.get('/',getProudcts)
-productRouter.get('/',getOneProudct)
+productRouter.get('/:ProductID',getOneProudct)
 
 
 export default productRouter
