@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deleteUser, forgetPassword, getUsers, login, resetPassword, reVerfiyng, signUp, ubdatePassword, updateUser, verfiyng } from "./user.controler.js";
+import { deleteUser, forgetPassword, getUsers, googleLogin, login, resetPassword, reVerfiyng, signUp, ubdatePassword, updateUser, verfiyng } from "./user.controler.js";
 import { signUpSchema , resetPasswordSchema, loginSchema, updateUserSchema, updatePasswordSchema, deleteSchema } from "./userSchemas.js";
 import auth from "../../services/auth.js";
 import GValidator from "../../services/GValidator.js";
@@ -9,6 +9,7 @@ let all = ["user","admin"]
 
 userRouter.get('/',getUsers );
 userRouter.post('/',GValidator(signUpSchema), signUp);
+userRouter.post('/googleLogin', googleLogin);
 userRouter.get('/verfiy/:token',verfiyng );
 userRouter.get('/reVerfiy/:reToken',reVerfiyng );
 userRouter.post('/forgetPassword' ,forgetPassword );

@@ -7,12 +7,70 @@ import asyncHandler from '../../services/asyncHandler.js';
 import sendVerfyingEmail from '../../services/sendVerfyingEmail.js';
 import { userModel } from '../../db/models/user.model.js';
 import AppError from '../../services/AppError.js';
+import { OAuth2Client } from "google-auth-library";
+
 dotenv.config()
+
+const client = new OAuth2Client(process.env.CLIENT_ID);
+
+async function verifyGoogleToken(idToken) {
+	try {
+		const ticket = await client.verifyIdToken({
+			idToken,
+			audience: process.env.CLIENT_ID,
+		})
+		return ticket.getPayload() 
+	} catch (error) {
+		console.error("Error verifying Google ID Token:", error)
+		throw new Error("Invalid ID Token")
+	}
+}
+
+
+export const googleLogin = async (req, res) => {
+	const { idToken } = req.body
+    console.log(idToken)
+	try {
+		const payload = await verifyGoogleToken(idToken)
+
+		const { name, email } = payload
+
+		let user = await userModel.findOne({ email })
+
+		if (!user) {
+			user = new userModel({
+				name,
+				email,
+				provider: "google",
+			})
+			await user.save()
+		}
+
+        let token = jwt.sign({ email: user.email }, "ali")
+
+		res.status(200).json({
+			message: "Login successful",
+			user: {
+				token,
+				provider: user.provider,
+			},
+		})
+	} catch (error) {
+		res.status(400).json({ message: error.message })
+	}
+}
+
+
+
+
 
 export const getUsers = asyncHandler(async (req, res, next) => {
     let user = await userModel.find().select("-password -_id -__v")
     return res.status(200).json({ msg: 'sucsses', user })
 })
+
+
+
 
 export const signUp = asyncHandler(async (req, res, next) => {
     let hashed = bcrypt.hashSync(req.body.password, Number(process.env.SALT))

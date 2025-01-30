@@ -19,7 +19,6 @@ let userSchema = mongoose.Schema({
     ,
     password:{
         type: String,
-        required: true,
         trim:true
     }
     ,
@@ -53,7 +52,13 @@ let userSchema = mongoose.Schema({
     passwordChangedAt:{
         type: Number,
         default: null
+    },
+    provider:{
+        type: String,
+        enum: ["email", "google"],
+        default: "email"
     }
+
 })
 
 export const userModel= mongoose.model('user', userSchema);
