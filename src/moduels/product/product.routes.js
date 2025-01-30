@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { createProudctSchema, updateProudctSchema } from "./productSchemas.js";
-import { createProduct, deleteProudct, getProudcts, updateProduct } from "./product.controler.js";
+import { createProduct, deleteProudct, getOneProudct, getProudcts, updateProduct } from "./product.controler.js";
 import GValidator from "../../services/GValidator.js";
 import auth from "../../services/auth.js";
 import { multerHost } from "../../services/multer.js";
