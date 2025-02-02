@@ -11,13 +11,13 @@ export const removeFromCart = asyncHandler(async (req, res, next) => {
     let product = await productModel.findById(productId)
 
     if(!product){
-        next(new AppError( 'product not found', 404))
+        res.json({msg :  'product not found'})
     }
 
     let cart = await cartModel.findOneAndUpdate({user : req.user._id  , "products.productId" : productId}, {$pull: {products: {productId}}}, {new: true})
 
     if (!cart) {
-        next(new AppError('cart not found', 404))
+        res.json({msg : 'cart not found'})
     }
 
     
@@ -30,7 +30,7 @@ export const removeFromCart = asyncHandler(async (req, res, next) => {
 
 export const getCart = asyncHandler(async (req, res, next) => {
     const cart = await cartModel.findOne({user: req.user._id})
-    res.json({ msg: 'done', cart })
+    return res.json({ msg: 'done', cart })
 })
 
 export const createCart = asyncHandler(async (req, res, next) => {
@@ -38,7 +38,7 @@ export const createCart = asyncHandler(async (req, res, next) => {
 
     let product = await productModel.findOne({_id:productId , stock : {$gte:quantity}})
     if(!product){
-        next(new AppError( 'product not found', 404))
+        return res.json({ msg: 'product not found' })
     }
 
     let cartExist = await cartModel.findOne({user : req.user._id})
