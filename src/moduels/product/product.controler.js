@@ -22,7 +22,7 @@ export const createProduct = asyncHandler(async (req, res, next) => {
     let product = await productModel.create({
         title,
         slug : slugify(title,{replacement:'-',lower : true}),
-        stock ,
+        stock : Number(stock) ,
         descreption ,
         price ,
         subPrice: discount? price - (discount/100*price) : price,

@@ -67,12 +67,13 @@ let productSchema = mongoose.Schema({
         required: true,
         min: 1,
         default:0
+    },
+    stock:{
+        type : Number,
+        min:0,
+        default:0
     }
-    
-    
-
-
-    
+  
 })
 
 export const productModel= mongoose.models.product || mongoose.model('product', productSchema)  

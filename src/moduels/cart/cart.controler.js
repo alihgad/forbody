@@ -34,20 +34,27 @@ export const getCart = asyncHandler(async (req, res, next) => {
 })
 
 export const createCart = asyncHandler(async (req, res, next) => {
+    
     const { productId , quantity } = req.body  
 
     let product = await productModel.findOne({_id:productId , stock : {$gte:quantity}})
+    console.log(await productModel.find())
+    
     if(!product){
         return res.json({ msg: 'product not found' })
     }
 
     let cartExist = await cartModel.findOne({user : req.user._id})
+    console.log(cartExist)
+    
 
 
     if (cartExist){
         let productExist = cartExist.products.find(p => p.productId == productId)
 
         if(productExist){
+            console.log('ex')
+            
             productExist.quantity += Number(quantity)
             cartExist.save()
             return res.json({ msg: 'product added to cart', cartExist })

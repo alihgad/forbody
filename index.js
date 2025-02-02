@@ -5,6 +5,7 @@ import productRouter from './src/moduels/product/product.routes.js'
 import cartRouter from './src/moduels/cart/cart.routes.js'
 const app = express()
 const port = process.env.PORT || 3000
+
 connectionDB
 app.use(express.json())
 app.use("/user",userRouter)
