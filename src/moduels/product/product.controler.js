@@ -8,7 +8,7 @@ import { productModel } from "../../db/models/product.model.js";
 
 export const createProduct = asyncHandler(async (req, res, next) => {
     const { title , stock , descreption , price  , discount } = req.body
-  
+    
     let customId = nanoid(5)
 
     const { secure_url, public_id } = await cloudinary.uploader.upload(req.files.image[0].path, {
@@ -22,7 +22,7 @@ export const createProduct = asyncHandler(async (req, res, next) => {
     let product = await productModel.create({
         title,
         slug : slugify(title,{replacement:'-',lower : true}),
-        stock : Number(stock) ,
+        stock : stock ,
         descreption ,
         price ,
         subPrice: discount? price - (discount/100*price) : price,
