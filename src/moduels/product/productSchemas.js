@@ -5,7 +5,7 @@ import glopalSchema from '../../services/glopalSchema.js'
 export const createProudctSchema = {
     body: joi.object({
         title: joi.string().required(),
-        stock : joi.number().required(),
+        stock : joi.required(),
         descreption : joi.string().required(),
         price : joi.number().required(),
         discount : joi.number().max(100)
