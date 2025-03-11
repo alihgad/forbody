@@ -3,10 +3,12 @@ import connectionDB from './src/db/connection.js'
 import userRouter from './src/moduels/user/user.routes.js'
 import productRouter from './src/moduels/product/product.routes.js'
 import cartRouter from './src/moduels/cart/cart.routes.js'
+import cors from 'cors'
 const app = express()
 const port = process.env.PORT || 3000
 
 connectionDB
+app.use(cors())
 app.use(express.json())
 app.use("/user",userRouter)
 app.use("/product",productRouter)
