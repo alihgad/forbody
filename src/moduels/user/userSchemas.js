@@ -8,8 +8,8 @@ export const signUpSchema = {
         email: glopalSchema.email.required(),
         password: glopalSchema.password.required(),
         age: joi.number().min(18).integer().required(),
-        phones: joi.array().items(joi.string().regex(/^01\d{9,10}$/)),
-        address: joi.array().items(joi.string()),
+        phones: joi.string().regex(/^01\d{9,10}$/),
+        address: joi.string(),
         role:joi.string().valid("user", "admin"),
     })
 };

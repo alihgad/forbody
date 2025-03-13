@@ -74,6 +74,9 @@ export const signUp = asyncHandler(async (req, res, next) => {
     req.body.password = hashed
     await sendVerfyingEmail(req, req.body.email)
 
+    req.body.address = [req.body.address]
+    req.body.phones = [req.body.phones]
+
     let user = await userModel.create(req.body)
     return res.status(200).json({ msg: 'sucsses', user })
 })
@@ -92,12 +95,15 @@ export const verfiyng = asyncHandler(async (req, res, next) => {
 export const reVerfiyng = asyncHandler(async (req, res, next) => {
     let { reToken } = req.params
     let { email } = jwt.verify(reToken, process.env.SECRET)
+    
     let user = await userModel.findOne({ email, confirmed: false })
-
+    console.log(user)
+    
     if (!user) {
         return res.status(404).json({ msg: 'user not found or alerdy verfayied' })
     }
-    sendVerfyingEmail(req, email)
+
+    // sendVerfyingEmail(req, email)
 
     return res.status(200).json({ msg: 'reVerfiy sucsses' })
 })
