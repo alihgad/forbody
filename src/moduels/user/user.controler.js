@@ -23,14 +23,13 @@ async function verifyGoogleToken(idToken) {
 	} catch (error) {
 		console.error("Error verifying Google ID Token:", error)
 		throw new Error("Invalid ID Token")
+
 	}
 }
 
 
-export const googleLogin = async (req, res) => {
+export const googleLogin = asyncHandler( async (req, res,next) => {
 	const { idToken } = req.body
-    console.log(idToken)
-	try {
 		const payload = await verifyGoogleToken(idToken)
 
 		const { name, email } = payload
@@ -55,10 +54,8 @@ export const googleLogin = async (req, res) => {
 				provider: user.provider,
 			},
 		})
-	} catch (error) {
-		res.status(400).json({ message: error.message })
-	}
-}
+
+})
 
 
 
@@ -193,7 +190,6 @@ export const ubdatePassword = asyncHandler(async (req, res, next) => {
     let hashed = bcrypt.hashSync(newPassword, Number(process.env.SALT))
     req.user.password = hashed
     req.user.passwordChangedAt = Date.now()
-    req.user.name = "laaalala"
     await req.user.save()
     return res.status(200).json({ msg: 'sucsses' })
 })
@@ -201,8 +197,12 @@ export const ubdatePassword = asyncHandler(async (req, res, next) => {
 export const deleteUser = asyncHandler(async (req, res, next) => {
 
 
-    await userModel.findOneAndDelete({ email: req.user.email })
+    let user = await userModel.findOneAndDelete({ email: req.user.email })
+
+    if (!user) {
+        next(new AppError('user not found' , 404))
+    }
 
 
-    return res.status(200).json({ msg: 'user deleted' })
+    return res.status(200).json({ msg: 'user deleted' , user })
 })

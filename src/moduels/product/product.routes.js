@@ -6,7 +6,7 @@ import auth from "../../services/auth.js";
 import { multerHost } from "../../services/multer.js";
 
 
-
+let productRouter = Router()
 
 productRouter.post('/',auth(["admin"]),multerHost().fields([{name:'image' , maxCount:1  },{ name:"images",maxCount: 4}]),GValidator(createProudctSchema),createProduct)
 productRouter.delete('/:ProductID',auth(["admin"]),deleteProudct)
