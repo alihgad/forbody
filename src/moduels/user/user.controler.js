@@ -200,13 +200,11 @@ export const ubdatePassword = asyncHandler(async (req, res, next) => {
 
 export const deleteUser = asyncHandler(async (req, res, next) => {
 
-
     let user = await userModel.findOneAndDelete({ email: req.user.email })
 
     if (!user) {
         next(new AppError('user not found' , 404))
     }
-
 
     return res.status(200).json({ msg: 'user deleted' , user })
 })
