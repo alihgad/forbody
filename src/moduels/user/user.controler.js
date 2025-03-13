@@ -141,16 +141,20 @@ export const resetPassword = asyncHandler(async (req, res, next) => {
 
 export const login = asyncHandler(async (req, res, next) => {
     let user = await userModel.findOne({ email: req.body.email.toLowerCase() })
+
     if (!user.confirmed) {
-        return res.status(403).json({ msg: 'email not verfayied' })
+        return next(new AppError('email not verfayied', 403))
     }
+
     if (!user || !bcrypt.compareSync(req.body.password, user.password)) {
-        return res.status(401).json({ msg: 'invalid email or password' })
+        return next(new AppError('invalid email or password', 401))
     }
+
     let token = jwt.sign({ email: req.body.email }, process.env.SECRET)
     user.loggedIn = true
     await user.save()
     return res.status(200).json({ msg: 'sucsses', token })
+
 })
 
 export const updateUser = asyncHandler(async (req, res, next) => {
