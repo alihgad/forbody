@@ -103,7 +103,7 @@ export const reVerfiyng = asyncHandler(async (req, res, next) => {
         return res.status(404).json({ msg: 'user not found or alerdy verfayied' })
     }
 
-    // sendVerfyingEmail(req, email)
+    sendVerfyingEmail(req, email)
 
     return res.status(200).json({ msg: 'reVerfiy sucsses' })
 })
@@ -112,7 +112,7 @@ export const forgetPassword = asyncHandler(async (req, res, next) => {
     let { email } = req.body
     let user = await userModel.findOne({ email })
     if (!user) {
-        return res.status(404).json({ msg: 'user not found' })
+        return next(new AppError('user not found' , 404))
     }
     let code = nanoid(5)
     user.code = code
@@ -120,11 +120,11 @@ export const forgetPassword = asyncHandler(async (req, res, next) => {
 
     main(email, `<h1>your password reset code is ${code}</h1>`, "password reset")
     .then(()=>{
-        return res.status(200).json({ msg: 'verfiy sucsses' })
+        return next(new AppError('error' , 500))
     
     })
     .catch(e=>{
-        return res.status(200).json({ msg: 'error' , e , details: e.message })
+        return next(new AppError('error' , 500))
     })
     
 
